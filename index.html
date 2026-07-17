@@ -102,6 +102,7 @@
 
   .dawn-bar {
     background: linear-gradient(to right, var(--night) 0%, var(--night-2) 38%, var(--accent) 78%, var(--accent-2) 100%);
+    box-shadow: 0 0 10px 1px rgba(255, 138, 76, 0.55), 0 0 26px 4px rgba(255, 138, 76, 0.3);
   }
 
   .sun-dot {
@@ -109,7 +110,11 @@
   }
 
   .card-editor {
-    box-shadow: 0 0 0 2px var(--accent), 0 20px 40px -20px rgba(255, 122, 69, 0.45);
+    border: 2px solid transparent;
+    background:
+      linear-gradient(var(--paper-raised), var(--paper-raised)) padding-box,
+      linear-gradient(135deg, var(--accent), var(--accent-2)) border-box;
+    box-shadow: 0 20px 40px -20px rgba(255, 122, 69, 0.45);
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -123,9 +128,30 @@
   .cta-btn {
     background: var(--accent);
     color: var(--accent-ink);
+    transition: filter 0.15s ease, transform 0.15s ease;
   }
-  .cta-btn:hover { filter: brightness(1.06); }
-  .cta-btn:active { filter: brightness(0.96); }
+  .cta-btn:hover { filter: brightness(1.06); transform: translateY(-1px); }
+  .cta-btn:active { filter: brightness(0.96); transform: translateY(0); }
+
+  @keyframes ctaPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255, 122, 69, 0.45); }
+    50% { box-shadow: 0 0 0 7px rgba(255, 122, 69, 0); }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .cta-btn-primary { animation: ctaPulse 2.8s ease-in-out infinite; }
+  }
+
+  .cta-btn-outline {
+    background: transparent;
+    color: var(--ink-soft);
+    border: 1.5px solid var(--line);
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  }
+  .cta-btn-outline:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
 
   table.compare th.sticky-col, table.compare td.sticky-col {
     position: sticky;
@@ -201,7 +227,7 @@
             <td class="px-4 py-3 text-center" style="border-bottom: 1px solid var(--line);"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="var(--good-soft)"/><path d="M6 10.2l2.4 2.4L14 7" stroke="var(--good)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
             <td class="px-4 py-3" style="border-bottom: 1px solid var(--line); color: var(--ink-soft);">2 yr</td>
             <td class="px-4 py-3" style="border-bottom: 1px solid var(--line);">
-              <a href="#p1" class="cta-btn inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-semibold px-4 py-2">Check Price</a>
+              <a href="#p1" class="cta-btn cta-btn-primary inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-semibold px-4 py-2">Check Price</a>
             </td>
           </tr>
 
@@ -219,7 +245,7 @@
             <td class="px-4 py-3 text-center" style="border-bottom: 1px solid var(--line);"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="var(--bad-soft)"/><path d="M7 7l6 6M13 7l-6 6" stroke="var(--bad)" stroke-width="1.8" stroke-linecap="round"/></svg></td>
             <td class="px-4 py-3" style="border-bottom: 1px solid var(--line); color: var(--ink-soft);">1 yr</td>
             <td class="px-4 py-3" style="border-bottom: 1px solid var(--line);">
-              <a href="#p2" class="cta-btn inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-semibold px-4 py-2">Check Price</a>
+              <a href="#p2" class="cta-btn-outline inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-semibold px-4 py-2">Check Price</a>
             </td>
           </tr>
 
@@ -237,7 +263,7 @@
             <td class="px-4 py-3 text-center" style="border-bottom: 1px solid var(--line);"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="var(--bad-soft)"/><path d="M7 7l6 6M13 7l-6 6" stroke="var(--bad)" stroke-width="1.8" stroke-linecap="round"/></svg></td>
             <td class="px-4 py-3" style="border-bottom: 1px solid var(--line); color: var(--ink-soft);">1 yr</td>
             <td class="px-4 py-3" style="border-bottom: 1px solid var(--line);">
-              <a href="#p3" class="cta-btn inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-semibold px-4 py-2">Check Price</a>
+              <a href="#p3" class="cta-btn-outline inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-semibold px-4 py-2">Check Price</a>
             </td>
           </tr>
 
@@ -255,7 +281,7 @@
             <td class="px-4 py-3 text-center" style="border-bottom: 1px solid var(--line);"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="var(--good-soft)"/><path d="M6 10.2l2.4 2.4L14 7" stroke="var(--good)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
             <td class="px-4 py-3" style="border-bottom: 1px solid var(--line); color: var(--ink-soft);">1 yr</td>
             <td class="px-4 py-3" style="border-bottom: 1px solid var(--line);">
-              <a href="#p4" class="cta-btn inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-semibold px-4 py-2">Check Price</a>
+              <a href="#p4" class="cta-btn-outline inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-semibold px-4 py-2">Check Price</a>
             </td>
           </tr>
 
@@ -273,7 +299,7 @@
             <td class="px-4 py-3 text-center" style="border-bottom: 1px solid var(--line);"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="var(--bad-soft)"/><path d="M7 7l6 6M13 7l-6 6" stroke="var(--bad)" stroke-width="1.8" stroke-linecap="round"/></svg></td>
             <td class="px-4 py-3" style="border-bottom: 1px solid var(--line); color: var(--ink-soft);">90 days</td>
             <td class="px-4 py-3" style="border-bottom: 1px solid var(--line);">
-              <a href="#p5" class="cta-btn inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-semibold px-4 py-2">Check Price</a>
+              <a href="#p5" class="cta-btn-outline inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-semibold px-4 py-2">Check Price</a>
             </td>
           </tr>
 </tbody>
@@ -289,7 +315,7 @@
     <div class="relative">
       <div class="rank-rail hidden sm:block absolute left-[27px] top-2 bottom-2 w-[3px] rounded-full" aria-hidden="true"></div>
       <div class="flex flex-col gap-10" id="product-list">
-      <article id="p1" class="card-editor relative sm:ml-14 rounded-2xl p-6 sm:p-7 scroll-mt-6" style="background: var(--paper-raised); border: 1px solid var(--line);">
+      <article id="p1" class="card-editor relative sm:ml-14 rounded-2xl p-6 sm:p-7 scroll-mt-6" style="">
         <div class="hidden sm:flex absolute -left-14 top-7 w-9 h-9 rounded-full items-center justify-center font-display font-semibold text-sm" style="background: var(--paper); border: 2px solid var(--accent); color: var(--ink);">
           1
         </div>
@@ -316,7 +342,7 @@
 <li class="flex gap-2 items-start"><span class="shrink-0 mt-0.5"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="var(--bad-soft)"/><path d="M7 7l6 6M13 7l-6 6" stroke="var(--bad)" stroke-width="1.8" stroke-linecap="round"/></svg></span><span>App requires an account and Wi-Fi setup on first run</span></li></ul>
           </div>
         </div>
-        <a href="#p1" class="cta-btn flex items-center justify-center w-full rounded-full text-base font-semibold py-4 min-h-[56px] active:scale-[0.99] transition">
+        <a href="#p1" class="cta-btn cta-btn-primary flex items-center justify-center w-full rounded-full text-base font-semibold py-4 min-h-[56px] active:scale-[0.99] transition">
           Check Price →
         </a>
       </article>
@@ -348,7 +374,7 @@
 <li class="flex gap-2 items-start"><span class="shrink-0 mt-0.5"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="var(--bad-soft)"/><path d="M7 7l6 6M13 7l-6 6" stroke="var(--bad)" stroke-width="1.8" stroke-linecap="round"/></svg></span><span>Speaker distorts above 60% volume</span></li></ul>
           </div>
         </div>
-        <a href="#p2" class="cta-btn flex items-center justify-center w-full rounded-full text-base font-semibold py-4 min-h-[56px] active:scale-[0.99] transition">
+        <a href="#p2" class="cta-btn-outline flex items-center justify-center w-full rounded-full text-base font-semibold py-4 min-h-[56px] active:scale-[0.99] transition">
           Check Price →
         </a>
       </article>
@@ -380,7 +406,7 @@
 <li class="flex gap-2 items-start"><span class="shrink-0 mt-0.5"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="var(--bad-soft)"/><path d="M7 7l6 6M13 7l-6 6" stroke="var(--bad)" stroke-width="1.8" stroke-linecap="round"/></svg></span><span>No app means no fine-tuning or schedules</span></li></ul>
           </div>
         </div>
-        <a href="#p3" class="cta-btn flex items-center justify-center w-full rounded-full text-base font-semibold py-4 min-h-[56px] active:scale-[0.99] transition">
+        <a href="#p3" class="cta-btn-outline flex items-center justify-center w-full rounded-full text-base font-semibold py-4 min-h-[56px] active:scale-[0.99] transition">
           Check Price →
         </a>
       </article>
@@ -411,7 +437,7 @@
 <li class="flex gap-2 items-start"><span class="shrink-0 mt-0.5"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="var(--bad-soft)"/><path d="M7 7l6 6M13 7l-6 6" stroke="var(--bad)" stroke-width="1.8" stroke-linecap="round"/></svg></span><span>Light housing runs noticeably warm after an hour on</span></li></ul>
           </div>
         </div>
-        <a href="#p4" class="cta-btn flex items-center justify-center w-full rounded-full text-base font-semibold py-4 min-h-[56px] active:scale-[0.99] transition">
+        <a href="#p4" class="cta-btn-outline flex items-center justify-center w-full rounded-full text-base font-semibold py-4 min-h-[56px] active:scale-[0.99] transition">
           Check Price →
         </a>
       </article>
@@ -442,7 +468,7 @@
 <li class="flex gap-2 items-start"><span class="shrink-0 mt-0.5"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="var(--bad-soft)"/><path d="M7 7l6 6M13 7l-6 6" stroke="var(--bad)" stroke-width="1.8" stroke-linecap="round"/></svg></span><span>Shortest warranty of any light tested</span></li></ul>
           </div>
         </div>
-        <a href="#p5" class="cta-btn flex items-center justify-center w-full rounded-full text-base font-semibold py-4 min-h-[56px] active:scale-[0.99] transition">
+        <a href="#p5" class="cta-btn-outline flex items-center justify-center w-full rounded-full text-base font-semibold py-4 min-h-[56px] active:scale-[0.99] transition">
           Check Price →
         </a>
       </article>
