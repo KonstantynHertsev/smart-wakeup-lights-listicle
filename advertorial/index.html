@@ -39,6 +39,7 @@
     --good-soft: #e5f2e9;
     --bad: #bd5847;
     --bad-soft: #fbe9e5;
+    --like: #e0405f;
   }
   :root[data-theme="dark"] {
     --paper: #1b1416;
@@ -54,6 +55,7 @@
     --good-soft: #1c3324;
     --bad: #e08a7c;
     --bad-soft: #3a2320;
+    --like: #ff7086;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
@@ -70,6 +72,7 @@
       --good-soft: #1c3324;
       --bad: #e08a7c;
       --bad-soft: #3a2320;
+      --like: #ff7086;
     }
   }
 
@@ -168,8 +171,17 @@
   .compare-range::-moz-range-thumb { width: 2.5rem; height: 2.5rem; opacity: 0; }
 
   /* like button */
+  .like-btn svg { display: inline-block; transition: transform 0.15s ease; }
   .like-btn svg path { transition: fill 0.15s ease, stroke 0.15s ease; }
-  .like-btn[data-liked="true"] svg path { fill: var(--accent-2); stroke: var(--accent-2); }
+  .like-btn[data-liked="true"] svg path { fill: var(--like); stroke: var(--like); }
+  @keyframes likePop {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.35); }
+    100% { transform: scale(1); }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .like-btn.pop svg { animation: likePop 0.38s ease; }
+  }
 
   /* sticky mobile cta */
   #sticky-cta {
@@ -198,20 +210,16 @@
 
   <!-- ================= MASTHEAD ================= -->
   <header style="border-bottom: 1px solid var(--line); background: var(--paper);">
-    <div class="max-w-3xl mx-auto px-5 py-4 flex items-center justify-between">
+    <div class="max-w-3xl mx-auto px-5 py-3 flex items-center justify-between">
       <div class="flex items-center gap-2">
-        <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true">
-          <circle cx="13" cy="13" r="12" fill="none" stroke="var(--accent)" stroke-width="2"/>
-          <path d="M8 13.5l3.2 3.2L18.5 9.2" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <span class="font-semibold tracking-tight" style="font-size: 1.05rem;">Health &amp; Tech Blog</span>
+        <span class="w-2 h-2 rounded-full shrink-0" style="background: var(--accent-2);" aria-hidden="true"></span>
+        <span class="font-bold" style="font-size: 0.92rem; letter-spacing: 0.14em; text-transform: uppercase;">The Daily Glow</span>
       </div>
-      <nav class="hidden sm:flex items-center gap-6 text-sm" style="color: var(--ink-soft);" aria-hidden="true">
-        <span>Beauty</span>
-        <span>Wellness</span>
-        <span>Tech</span>
-        <span>Reviews</span>
-      </nav>
+      <button type="button" class="p-2 -mr-2 rounded-md" aria-label="Open menu" style="color: var(--ink);">
+        <svg width="19" height="19" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path d="M3 6h14M3 10h14M3 14h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      </button>
     </div>
   </header>
 
@@ -307,6 +315,44 @@
     <p class="mb-6"><em>I still have tired mornings. I just don't need three products to hide them anymore.</em></p>
 
   </article>
+
+  <!-- ================= PRODUCT WIDGET (repeat) ================= -->
+  <div class="max-w-3xl mx-auto px-5">
+    <div class="not-prose rounded-2xl p-5 sm:p-6 mt-2 mb-4 flex flex-col sm:flex-row items-start sm:items-center gap-5" style="background: var(--paper-raised); border: 1px solid var(--line);">
+      <div class="w-20 h-20 rounded-xl shrink-0 flex items-center justify-center" style="background: linear-gradient(135deg, var(--accent-2-soft), var(--paper));">
+        <svg width="46" height="46" viewBox="0 0 40 40" aria-hidden="true">
+          <defs>
+            <linearGradient id="wandBody2" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#ffffff"/>
+              <stop offset="55%" stop-color="#d9dde2"/>
+              <stop offset="100%" stop-color="#a7aeb7"/>
+            </linearGradient>
+            <linearGradient id="wandTip2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="var(--accent-strong)"/>
+              <stop offset="100%" stop-color="var(--accent)"/>
+            </linearGradient>
+          </defs>
+          <ellipse cx="20" cy="33" rx="9" ry="2.4" fill="#000000" opacity="0.08"/>
+          <g transform="rotate(-32 20 20)">
+            <rect x="14" y="7" width="12" height="23" rx="6" fill="url(#wandBody2)" stroke="rgba(0,0,0,0.1)" stroke-width="0.5"/>
+            <line x1="16.5" y1="20.5" x2="23.5" y2="20.5" stroke="rgba(0,0,0,0.15)" stroke-width="1" stroke-linecap="round"/>
+            <line x1="16.5" y1="23.5" x2="23.5" y2="23.5" stroke="rgba(0,0,0,0.15)" stroke-width="1" stroke-linecap="round"/>
+            <line x1="16.5" y1="26.5" x2="23.5" y2="26.5" stroke="rgba(0,0,0,0.15)" stroke-width="1" stroke-linecap="round"/>
+            <rect x="16" y="2" width="3" height="8" rx="1.5" fill="url(#wandTip2)"/>
+            <rect x="21" y="2" width="3" height="8" rx="1.5" fill="url(#wandTip2)"/>
+            <circle cx="20" cy="16" r="1.9" fill="var(--accent-2)"/>
+          </g>
+        </svg>
+      </div>
+      <div class="flex-1">
+        <p class="font-sans font-semibold" style="font-family:'Sora',sans-serif;">Verafirm Micro-Current Wand</p>
+        <p class="font-sans text-sm mt-0.5" style="font-family:'Sora',sans-serif; color: var(--ink-soft);">5-minute nightly routine &middot; 3 intensity levels &middot; USB-C rechargeable</p>
+      </div>
+      <a href="#offer" class="cta-btn font-sans w-full sm:w-auto text-center rounded-full font-semibold px-6 py-3.5 min-h-[52px] flex items-center justify-center whitespace-nowrap" style="font-family:'Sora',sans-serif;">
+        Check Today's Price &rarr;
+      </a>
+    </div>
+  </div>
 
   <!-- ================= COMMENTS ================= -->
   <section class="max-w-3xl mx-auto px-5 py-12 sm:py-16" aria-labelledby="comments-heading">
@@ -419,8 +465,8 @@
 
   <!-- ================= FOOTER ================= -->
   <footer class="px-5 py-10 pb-28 sm:pb-10" style="border-top: 1px solid var(--line);">
-    <div class="max-w-3xl mx-auto text-xs leading-relaxed font-sans" style="font-family:'Sora',sans-serif; color: var(--ink-soft);">
-      <p>This article is a paid partner placement and contains affiliate links; we may earn a commission on purchases. "Health &amp; Tech Blog," the author, reader comments and the before/after comparison on this page are illustrative &mdash; built as a portfolio template, not a live publication.</p>
+    <div class="max-w-3xl mx-auto text-xs leading-relaxed font-sans text-neutral-500" style="font-family:'Sora',sans-serif;">
+      <p>This article is a paid partner placement and contains affiliate links; we may earn a commission on purchases. "The Daily Glow," the author, reader comments and the before/after comparison on this page are illustrative &mdash; built as a portfolio template, not a live publication.</p>
     </div>
   </footer>
 
@@ -459,6 +505,9 @@
           } else {
             btn.setAttribute('data-liked', 'true');
             countEl.textContent = base + 1;
+            btn.classList.remove('pop');
+            void btn.offsetWidth;
+            btn.classList.add('pop');
           }
         });
       });
